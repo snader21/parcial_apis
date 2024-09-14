@@ -9,6 +9,7 @@ import {
   HttpCode,
 } from '@nestjs/common';
 import { ProductsStoresService } from './products-stores.service';
+import { UpdateProductsStoreDto } from './dto/update-products-store.dto';
 
 @Controller('products')
 export class ProductsStoresController {
@@ -38,11 +39,11 @@ export class ProductsStoresController {
   @Put(':productId/stores')
   updateStoresFromProduct(
     @Param('productId') productId: string,
-    @Body('storesId') storesId: string[],
+    @Body() updateProductsStoreDto: UpdateProductsStoreDto,
   ) {
     return this.productsStoresService.updateStoresFromProduct(
       productId,
-      storesId,
+      updateProductsStoreDto,
     );
   }
 

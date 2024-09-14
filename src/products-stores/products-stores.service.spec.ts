@@ -132,7 +132,7 @@ describe('ProductsStoresService', () => {
     const storeIds = storeList.map((store) => store.id);
     const fakeProductId = faker.string.uuid();
     await expect(
-      service.updateStoresFromProduct(fakeProductId, storeIds),
+      service.updateStoresFromProduct(fakeProductId, { storeIds }),
     ).rejects.toHaveProperty(
       'message',
       `El producto con ID ${fakeProductId} no fue encontrado.`,
@@ -144,10 +144,10 @@ describe('ProductsStoresService', () => {
     const invalidStoreId = faker.string.uuid();
     const storeIds = [...storeList.map((store) => store.id), invalidStoreId];
     await expect(
-      service.updateStoresFromProduct(product.id, storeIds),
+      service.updateStoresFromProduct(product.id, { storeIds }),
     ).rejects.toHaveProperty(
       'message',
-      'Una o más tiendas no fueron encontrados.',
+      'Una o más tiendas no fueron encontradas.',
     );
   });
 

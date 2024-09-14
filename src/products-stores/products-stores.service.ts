@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { StoreEntity } from '../stores/entities/store.entity';
 import { In, Repository } from 'typeorm';
 import { ProductEntity } from '../products/entities/product.entity';
+import { UpdateProductsStoreDto } from './dto/update-products-store.dto';
 
 @Injectable()
 export class ProductsStoresService {
@@ -58,8 +59,9 @@ export class ProductsStoresService {
 
   async updateStoresFromProduct(
     productId: string,
-    storeIds: string[],
+    updateProductsStoreDto: UpdateProductsStoreDto,
   ): Promise<ProductEntity> {
+    const { storeIds } = updateProductsStoreDto;
     const prodcut = await this.productRepository.findOne({
       where: { id: productId },
       relations: ['stores'],
@@ -75,7 +77,7 @@ export class ProductsStoresService {
       },
     });
     if (stores.length !== storeIds.length) {
-      throw new NotFoundException('Una o más tiendas no fueron encontrados.');
+      throw new NotFoundException('Una o más tiendas no fueron encontradas.');
     }
     prodcut.stores = stores;
     return await this.productRepository.save(prodcut);

@@ -1,0 +1,1007 @@
+{
+	"info": {
+		"_postman_id": "50b3bba1-cfe4-439f-a4b9-bccc42d97c1e",
+		"name": "Stores",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26744671",
+		"_collection_link": "https://dreamteam-6072.postman.co/workspace/APIS_MISO~786423a7-8483-4bf6-8560-d86f35280edf/collection/26744671-50b3bba1-cfe4-439f-a4b9-bccc42d97c1e?action=share&source=collection_link&creator=26744671"
+	},
+	"item": [
+		{
+			"name": "Create valid store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseData = pm.response.json();",
+							"pm.collectionVariables.set(\"store_id\", responseData.id);",
+							"",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"la tienda de don jorge\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/stores",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create valid store",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"la tienda de don jorge\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "118"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"76-1PZ4vNg0JDUZ+IyuXd4ZigvbTNs\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:37:20 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"name\": \"la tienda de don jorge\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\",\n    \"id\": \"f03cf05d-aac1-4d13-ac43-b6af2965b880\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Create invalid store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"    pm.response.to.have.status(412);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.be.eqls(\"La ciudad debe tener 3 caracteres\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"la tienda de don jorge\",\n    \"city\": \"ciudad invalida\",\n    \"address\": \"calle falsa 123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/stores",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create invalid store",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"la tienda de don jorge\",\n    \"city\": \"ciudad invalida\",\n    \"address\": \"calle falsa 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5e-u6A7RczTSSK1ZEsLvZfQj9RnQTQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:38:11 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"La ciudad debe tener 3 caracteres\",\n    \"error\": \"Precondition Failed\",\n    \"statusCode\": 412\n}"
+				}
+			]
+		},
+		{
+			"name": "Get all stores",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Number of stores > ' + 0, function () {",
+							"   var data = pm.response.json()",
+							"   pm.expect(data.length).to.greaterThan(0)",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/stores",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get all stores",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "120"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"78-gOo+IL6lwl2o/Ql2xH2CM3R6ozU\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:40:15 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"f03cf05d-aac1-4d13-ac43-b6af2965b880\",\n        \"name\": \"la tienda de don jorge\",\n        \"city\": \"BOG\",\n        \"address\": \"calle falsa 123\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/stores/{{store_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get store",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/{{store_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{store_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "120"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"78-gOo+IL6lwl2o/Ql2xH2CM3R6ozU\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:40:25 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"f03cf05d-aac1-4d13-ac43-b6af2965b880\",\n        \"name\": \"la tienda de don jorge\",\n        \"city\": \"BOG\",\n        \"address\": \"calle falsa 123\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get store not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.be.eqls(\"Tienda no encontrada\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"6cfe4d4c-cd26-498d-be68-15d57912371f"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get store not found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"6cfe4d4c-cd26-498d-be68-15d57912371f"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-26zsOaUCAPfV7XKhWYDcE4j1IX8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:42:07 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Tienda no encontrada\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+				}
+			]
+		},
+		{
+			"name": "Update valid store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/stores/{{store_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update valid store",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores/{{product_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{product_id}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "118"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"76-V02BJ2JyRSctFhaKWA34eCxyWSQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:42:35 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"f03cf05d-aac1-4d13-ac43-b6af2965b880\",\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Update invalid store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 412\", function () {",
+							"   pm.response.to.have.status(412);",
+							"});",
+							"pm.test(\"Get expected error message\", function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.be.eqls(\"La ciudad debe tener 3 caracteres\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"ciudad falsa\",\n    \"address\": \"calle falsa 123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/stores/{{store_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update invalid store",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"ciudad falsa\",\n    \"address\": \"calle falsa 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores/{{store_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{store_id}}"
+							]
+						}
+					},
+					"status": "Precondition Failed",
+					"code": 412,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "94"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5e-u6A7RczTSSK1ZEsLvZfQj9RnQTQ\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:45:30 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"La ciudad debe tener 3 caracteres\",\n    \"error\": \"Precondition Failed\",\n    \"statusCode\": 412\n}"
+				}
+			]
+		},
+		{
+			"name": "Update store not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.be.eqls(\"Tienda no encontrada\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"6cfe4d4c-cd26-498d-be68-15d57912371f"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update store not found",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"la tienda de don joaco\",\n    \"city\": \"BOG\",\n    \"address\": \"calle falsa 123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"6cfe4d4c-cd26-498d-be68-15d57912371f"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-26zsOaUCAPfV7XKhWYDcE4j1IX8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:47:32 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Tienda no encontrada\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete valid store",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/stores/{{store_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"{{store_id}}"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete valid store",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/{{store_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"{{store_id}}"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"17-PVQD/E0HAqMH9FRBYNXdIixTtCA\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:47:43 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Delete store not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Get expected error message\", function () {",
+							"    var data = pm.response.json();",
+							"    pm.expect(data.message).to.be.eqls(\"Tienda no encontrada\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"stores",
+						"6cfe4d4c-cd26-498d-be68-15d57912371f"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete store not found",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/stores/6cfe4d4c-cd26-498d-be68-15d57912371f",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"stores",
+								"6cfe4d4c-cd26-498d-be68-15d57912371f"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "71"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"47-26zsOaUCAPfV7XKhWYDcE4j1IX8\""
+						},
+						{
+							"key": "Date",
+							"value": "Sat, 14 Sep 2024 01:48:02 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Tienda no encontrada\",\n    \"error\": \"Not Found\",\n    \"statusCode\": 404\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "store_id",
+			"value": ""
+		},
+		{
+			"key": "product_id",
+			"value": ""
+		}
+	]
+}
