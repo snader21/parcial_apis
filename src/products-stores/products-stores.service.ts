@@ -14,7 +14,6 @@ export class ProductsStoresService {
   ) {}
 
   async addStoreToProduct(productId: string, storeId: string) {
-    console.log(storeId, productId);
     const store = await this.storeRepository.findOne({
       where: { id: storeId },
     });
